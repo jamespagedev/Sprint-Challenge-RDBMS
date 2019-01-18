@@ -15,9 +15,19 @@ const router = express.Router();
  ********************************************** routes *********************************************
  **************************************************************************************************/
 // ------------------------------------- Create Endpoints (MVP) ------------------------------------
-// /api/projects/:id/actions (get project with details)
 router.get('/', (req, res) => {
   db('projects')
+    .then(projects => {
+      res.status(200).json(projects);
+    })
+    .catch(err => res.status(500).json(err));
+});
+
+// /api/projects/:id/actions (get project with details)
+router.get('/:id', (req, res) => {
+  db('projects')
+    .join('actions', 'actions.project_id', 'projects.id')
+    .where({ 'projects.id': req.params.id })
     .then(projects => {
       res.status(200).json(projects);
     })
