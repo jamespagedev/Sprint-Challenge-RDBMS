@@ -35,7 +35,7 @@ router.get('/:id', (req, res) => {
         .then(project => {
           project[0].actions = actions;
           console.log(project);
-          res.status(200).json(project);
+          res.status(200).json(project[0]);
         });
     })
     .catch(err => res.status(500).json(err));
