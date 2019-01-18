@@ -18,6 +18,10 @@ const router = express.Router();
 router.get('/', (req, res) => {
   db('projects')
     .then(projects => {
+      projects = projects.map(project => ({
+        ...project,
+        completed: !!project.completed
+      }));
       res.status(200).json(projects);
     })
     .catch(err => res.status(500).json(err));
@@ -29,12 +33,15 @@ router.get('/:id', (req, res) => {
     .join('actions', 'actions.project_id', 'projects.id')
     .where({ 'projects.id': req.params.id })
     .then(projectActions => {
-      const actions = projectActions;
+      const actions = projectActions.map(action => ({
+        ...action,
+        completed: !!action.completed
+      }));
       db('projects')
         .where({ 'projects.id': req.params.id })
         .then(project => {
+          project[0].completed = !!project[0].completed
           project[0].actions = actions;
-          console.log(project);
           res.status(200).json(project[0]);
         });
     })

@@ -59,7 +59,6 @@ router.post('/', actionValidation, (req, res) => {
       res.status(201).json(`Created new action with id ${result}`);
     })
     .catch(err => {
-      console.log('found');
       res.status(500).json({ message: err });
     });
 });
