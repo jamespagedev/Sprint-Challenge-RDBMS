@@ -23,13 +23,20 @@ router.get('/', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-// /api/projects/:id/actions (get project with details)
+// /api/projects/:id (get project with details)
 router.get('/:id', (req, res) => {
   db('projects')
     .join('actions', 'actions.project_id', 'projects.id')
     .where({ 'projects.id': req.params.id })
-    .then(projects => {
-      res.status(200).json(projects);
+    .then(projectActions => {
+      const actions = projectActions;
+      db('projects')
+        .where({ 'projects.id': req.params.id })
+        .then(project => {
+          project[0].actions = actions;
+          console.log(project);
+          res.status(200).json(project);
+        });
     })
     .catch(err => res.status(500).json(err));
 });
