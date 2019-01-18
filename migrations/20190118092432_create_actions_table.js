@@ -18,7 +18,10 @@ exports.up = function(knex, Promise) {
       .unique();
     tbl.text('description').notNullable();
     tbl.text('notes');
-    tbl.boolean('completed').defaultTo(false);
+    tbl
+      .boolean('completed')
+      .notNullable()
+      .defaultTo(false);
   });
 };
 
