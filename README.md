@@ -29,25 +29,43 @@ This will be akin to the Web API that you built in the last sprint, only this ti
 Demonstrate your understanding of this week's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
 1. Explain the difference between `RDBMS` and `SQL`.
+
+- Relational Database Management System - are databases that store the data in tables. The columns can be setup with constraints and rules.
+- Structured Query Language - is a standard language used to manage data in the databases. This language has built-in commands such as select, from, insert, update, delete, having, where, join on, ect... These commands are supported by most (if not all) RDBMS.
+
 1. Why do tables need a `primary key`?
+
+- Primary keys are used to identify a row (record/entry) in the data table. The identifier should be unique and is used to point to information about the record when executing query commands to match the data with other data from other tables.
+
 1. What is the name given to a table column that references the primary key on another table.
+
+- Generally, the primary key of it's own table will contain the name "id". When another table stores a column used to point to this primary key, the general name usage is "tablename_id".
+- Knex provides built in methods to point to the primary key column between the two tables... for example:
+  `tbl.integer('tablecolumnname_id').unsigned().references('id').inTable('tablename');`
+
 1. What do we need in order to have a _many to many_ relationship between two tables.
+
+- You would need a table in between that stores 3 columns:
+  - The first column is a primary key (or some other unique identifier) for the current table used in between the two tables.
+  - The second column contains the primary keys from the first table.
+  - The third column contains the primary keys from the second table.
+- You can then use a any(many to many) number of combinations between primary keys of the two tables, which allows you to customize the data being queried.
 
 ## Project Set Up
 
 Follow these steps for starting your project.
 
-- [ ] Create a forked copy of this project.
-- [ ] Add your project manager as collaborator on Github.
-- [ ] Clone your OWN version of the repository (Not Lambda's by mistake!).
-- [ ] Create a new branch: git checkout -b `<firstName-lastName>`.
-- [ ] Implement the project on your newly created `<firstName-lastName>` branch, committing changes regularly.
-- [ ] Push commits: git push origin `<firstName-lastName>`.
+- [x] Create a forked copy of this project.
+- [x] Add your project manager as collaborator on Github.
+- [x] Clone your OWN version of the repository (Not Lambda's by mistake!).
+- [x] Create a new branch: git checkout -b `<firstName-lastName>`.
+- [x] Implement the project on your newly created `<firstName-lastName>` branch, committing changes regularly.
+- [x] Push commits: git push origin `<firstName-lastName>`.
 
 Follow these steps for completing your project.
 
-- [ ] Submit a Pull-Request to merge `<firstName-lastName>` Branch into master (student's Repo). **Please don't merge your own pull request**
-- [ ] Add your project manager as a reviewer on the pull-request
+- [x] Submit a Pull-Request to merge `<firstName-lastName>` Branch into master (student's Repo). **Please don't merge your own pull request**
+- [x] Add your project manager as a reviewer on the pull-request
 - [ ] Your project manager will count the project as complete by merging the branch back into master.
 
 ## Minimum Viable Product
